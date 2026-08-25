@@ -1,0 +1,114 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+    padding:25px;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+input,button{
+    padding:10px;
+}
+
+button{
+    cursor:pointer;
+}
+
+.cards{
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+
+}
+
+.card{
+
+    background:white;
+    padding:20px;
+    border-radius:10px;
+
+}
+
+.dark{
+
+    background:#222;
+    color:white;
+
+}
+
+.content{
+
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:15px;
+    margin-top:20px;
+
+}
+
+.table-box,
+.side,
+.daily{
+
+    background:white;
+    padding:20px;
+    border-radius:10px;
+
+}
+
+.daily{
+
+    margin-top:20px;
+
+}
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+
+}
+
+th,td{
+
+    padding:10px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+
+}
+
+.month{
+
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+
+}
+
+@media(max-width:900px){
+
+.cards{
+
+grid-template-columns:1fr 1fr;
+
+}
+
+.content{
+
+grid-template-columns:1fr;
+
+}
+
+}
