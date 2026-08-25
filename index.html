@@ -2,119 +2,153 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Dashboard</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js Engine -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<title>Sales Dashboard</title>
-
-<link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
+    <header>
+        <div>
+            <h2>Sales Dashboard</h2>
+            <p class="subtitle">Overview & Real-Time Performance Analytics</p>
+        </div>
 
-    <h2>Sales Dashboard</h2>
+        <div class="header-actions">
+            <input type="date" id="reportDate">
+            <button id="exportBtn" class="btn-secondary"><i class="fa-solid fa-download"></i> Export</button>
+            <button id="themeToggle" class="btn-icon"><i class="fa-solid fa-moon"></i></button>
+        </div>
+    </header>
 
-    <div>
+    <!-- KPI Metrics Grid -->
+    <div class="cards">
+        <div class="card dark">
+            <div class="card-header">
+                <p>Today's Sales</p>
+                <i class="fa-solid fa-cart-shopping card-icon"></i>
+            </div>
+            <h1 id="todaySales">--</h1>
+            <span class="trend positive"><i class="fa-solid fa-arrow-up"></i> 12% vs yesterday</span>
+        </div>
 
-        <input type="date" id="reportDate">
+        <div class="card">
+            <div class="card-header">
+                <p>Today's Revenue</p>
+                <i class="fa-solid fa-indian-rupee-sign card-icon"></i>
+            </div>
+            <h2 id="todayRevenue">--</h2>
+            <span class="trend positive"><i class="fa-solid fa-arrow-up"></i> 8% vs yesterday</span>
+        </div>
 
+        <div class="card">
+            <div class="card-header">
+                <p>MTD Sales</p>
+                <i class="fa-solid fa-chart-simple card-icon"></i>
+            </div>
+            <h2 id="mtdSales">--</h2>
+            <span class="trend positive"><i class="fa-solid fa-arrow-up"></i> 24% vs last month</span>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <p>MTD Revenue</p>
+                <i class="fa-solid fa-wallet card-icon"></i>
+            </div>
+            <h2 id="mtdRevenue">--</h2>
+            <span class="trend negative"><i class="fa-solid fa-arrow-down"></i> 3% vs target</span>
+        </div>
     </div>
 
-</header>
+    <!-- Analytics & Charts Section -->
+    <div class="charts-grid">
+        <div class="chart-box">
+            <div class="box-header">
+                <h3>Revenue Trend</h3>
+                <div class="chart-filters">
+                    <button class="active">7D</button>
+                    <button>1M</button>
+                    <button>1Y</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
 
-
-<div class="cards">
-
-    <div class="card dark">
-        <p>Today's Sales</p>
-        <h1 id="todaySales">--</h1>
+        <div class="chart-box">
+            <div class="box-header">
+                <h3>Sales Breakdown</h3>
+            </div>
+            <div class="chart-container">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
     </div>
 
-    <div class="card">
-        <p>Today's Revenue</p>
-        <h2 id="todayRevenue">--</h2>
+    <!-- Main Content Grid -->
+    <div class="content">
+        <div class="table-box">
+            <div class="box-header">
+                <h3>Leaderboard</h3>
+                <input type="text" id="searchRep" placeholder="Search representative...">
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Representative</th>
+                        <th>Today</th>
+                        <th>MTD</th>
+                        <th>Revenue</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard">
+                    <!-- Dynamic Rows -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="side">
+            <div class="box-header">
+                <h3>Monthly Sales</h3>
+                <i class="fa-regular fa-calendar"></i>
+            </div>
+            <div id="monthlyList"></div>
+        </div>
     </div>
 
-    <div class="card">
-        <p>MTD Sales</p>
-        <h2 id="mtdSales">--</h2>
-    </div>
-
-    <div class="card">
-        <p>MTD Revenue</p>
-        <h2 id="mtdRevenue">--</h2>
-    </div>
-
-</div>
-
-
-<div class="content">
-
-    <div class="table-box">
-
-        <h3>Leaderboard</h3>
-
+    <!-- Daily Metrics Section -->
+    <div class="daily">
+        <div class="box-header">
+            <h3>Daily Metrics</h3>
+            <button class="btn-text">View Full Log</button>
+        </div>
         <table>
-
             <thead>
-
                 <tr>
-
-                    <th>Representative</th>
-                    <th>Today</th>
-                    <th>MTD</th>
+                    <th>Date</th>
+                    <th>Sales</th>
                     <th>Revenue</th>
-
+                    <th>Avg Order Value</th>
                 </tr>
-
             </thead>
-
-            <tbody id="leaderboard"></tbody>
-
+            <tbody id="dailyTable">
+                <!-- Dynamic Rows -->
+            </tbody>
         </table>
-
     </div>
 
-    <div class="side">
-
-        <h3>Monthly Sales</h3>
-
-        <div id="monthlyList"></div>
-
-    </div>
-
-</div>
-
-
-<div class="daily">
-
-    <h3>Daily Metrics</h3>
-
-    <table>
-
-        <thead>
-
-        <tr>
-
-            <th>Date</th>
-            <th>Sales</th>
-            <th>Revenue</th>
-
-        </tr>
-
-        </thead>
-
-        <tbody id="dailyTable"></tbody>
-
-    </table>
-
-</div>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
+
 </html>
